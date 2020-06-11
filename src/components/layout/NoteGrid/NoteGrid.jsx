@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NoteItem from '../NoteItem/NoteItem';
-import { Grid, makeStyles, Container } from '@material-ui/core';
+import { Grid, makeStyles, Container, Typography } from '@material-ui/core';
+import NoteContext from '../../../context/notes/NoteContext';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
     display: 'flex',
     flexDirection: 'row',
+  },
+  message: {
+    textAlign: 'center',
+    margin: `5rem auto`,
   },
 }));
 
@@ -15,34 +20,19 @@ const createNotes = (note) => {
 
 const NoteGrid = () => {
   const classes = useStyles();
-  const notes = [
-    {
-      id: 1,
-      title: 'Hello',
-      content:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor.',
-      timestamp: 'June 11, 2020',
-    },
-    {
-      id: 2,
-      title: 'Hello',
-      content:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor.',
-      timestamp: 'June 11, 2020',
-    },
-    {
-      id: 3,
-      title: 'Hello',
-      content:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, dolor.',
-      timestamp: 'June 11, 2020',
-    },
-  ];
+  const noteContext = useContext(NoteContext);
+  const { notes } = noteContext;
 
   return (
     <Container>
       <Grid container className={classes.grid}>
-        {notes.map(createNotes)}
+        {notes.length > 0 ? (
+          notes.map(createNotes)
+        ) : (
+          <Typography variant="h5" className={classes.message}>
+            No notes present.
+          </Typography>
+        )}
       </Grid>
     </Container>
   );
