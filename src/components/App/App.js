@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import {
-  CssBaseline,
-  ThemeProvider,
-  createMuiTheme,
-  Container,
-  Card,
-} from '@material-ui/core';
+import { CssBaseline, ThemeProvider, createMuiTheme } from '@material-ui/core';
 import Navbar from '../layout/Navbar/Navbar';
+import Home from '../pages/Home';
+import About from '../pages/About';
 import UIContext from '../../context/ui/UIContext';
 
 function App() {
@@ -21,33 +18,16 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={appTheme}>
-      <CssBaseline />
-      <Navbar />
-      <Container>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-        <Card>
-          <h1>Hello</h1>
-        </Card>
-      </Container>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={appTheme}>
+        <CssBaseline />
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
+        </Switch>
+      </ThemeProvider>
+    </Router>
   );
 }
 

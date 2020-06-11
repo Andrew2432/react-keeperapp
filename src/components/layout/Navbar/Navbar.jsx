@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import {
   AppBar,
@@ -10,6 +11,7 @@ import {
   makeStyles,
   withStyles,
   Switch,
+  Link,
 } from '@material-ui/core';
 
 import Divider from '@material-ui/core/Divider';
@@ -110,6 +112,28 @@ const Navbar = () => {
 
   const classes = useStyles();
   const theme = useTheme();
+  const onClick = (e) => e.preventDefault();
+
+  function ListItemLink(props) {
+    const { icon, primary, to } = props;
+
+    const renderLink = React.useMemo(
+      () =>
+        React.forwardRef((itemProps, ref) => (
+          <RouterLink to={to} ref={ref} {...itemProps} />
+        )),
+      [to]
+    );
+
+    return (
+      <li>
+        <ListItem button component={renderLink} onClick={toggleDrawer}>
+          {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+          <ListItemText primary={primary} />
+        </ListItem>
+      </li>
+    );
+  }
 
   return (
     <AppBar position="static">
@@ -147,14 +171,8 @@ const Navbar = () => {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItemLink to="/" primary="Home" icon={<InboxIcon />} />
+          <ListItemLink to="/about" primary="About" icon={<MailIcon />} />
         </List>
         <Divider />
         <List>
