@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NoteItem = ({ title, timestamp, content }) => {
+const NoteItem = ({ id, title, timestamp, content, onClick }) => {
   const classes = useStyles();
   return (
     <Grid item className={classes.grid}>
@@ -52,13 +52,13 @@ const NoteItem = ({ title, timestamp, content }) => {
         </CardContent>
         <Divider />
         <CardActions disableSpacing>
-          <IconButton aria-label="edit">
+          <IconButton aria-label="edit" onClick={() => onClick(id)}>
             <EditIcon color="action" />
           </IconButton>
-          <IconButton aria-label="delete">
+          <IconButton aria-label="delete" onClick={() => onClick(id)}>
             <DeleteIcon color="error" />
           </IconButton>
-          <IconButton aria-label="star">
+          <IconButton aria-label="star" onClick={() => onClick(id)}>
             <StarIcon />
           </IconButton>
         </CardActions>
@@ -71,6 +71,7 @@ NoteItem.propTypes = {
   title: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default NoteItem;
