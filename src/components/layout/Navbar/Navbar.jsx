@@ -106,19 +106,10 @@ const ThemeSwitch = withStyles({
 
 const Navbar = () => {
   const uiContext = useContext(UIContext);
-  const { setTheme } = uiContext;
+  const { setTheme, drawer, toggleDrawer } = uiContext;
 
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <AppBar position="static">
@@ -126,9 +117,9 @@ const Navbar = () => {
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={handleDrawerOpen}
+          onClick={toggleDrawer}
           edge="start"
-          className={clsx(classes.menuButton, open && classes.hide)}
+          className={clsx(classes.menuButton, drawer && classes.hide)}
         >
           <MenuIcon />
         </IconButton>
@@ -140,13 +131,13 @@ const Navbar = () => {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={drawer}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={toggleDrawer}>
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
             ) : (
