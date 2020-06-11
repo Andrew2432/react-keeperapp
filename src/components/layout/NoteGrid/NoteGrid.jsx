@@ -15,10 +15,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const createNotes = (note) => {
-  return <NoteItem key={note.id} onClick={handleEdit} {...note} />;
+  return <NoteItem key={note.id} {...note} />;
 };
-
-const handleEdit = (id) => console.log(id);
 
 const NoteGrid = () => {
   const classes = useStyles();

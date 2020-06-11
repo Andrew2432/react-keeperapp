@@ -1,13 +1,14 @@
 import React, { useReducer } from 'react';
 import NoteContext from './NoteContext';
 import noteReducer from './noteReducer';
-import { ADD_NOTE } from '../types';
+import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const NoteState = (props) => {
   const initialState = {
     notes: [],
     currentNote: null,
+    mode: 'add',
   };
 
   const [state, dispatch] = useReducer(noteReducer, initialState);
@@ -36,9 +37,27 @@ const NoteState = (props) => {
     });
   };
 
+  const editNote = (id) => {
+    dispatch({ type: EDIT_NOTE, payload: id });
+  };
+
+  const updateNote = (note) => {
+    dispatch({
+      type: UPDATE_NOTE,
+      payload: note,
+    });
+  };
+
   return (
     <NoteContext.Provider
-      value={{ notes: state.notes, currentNote: state.currentNote, addNote }}
+      value={{
+        notes: state.notes,
+        currentNote: state.currentNote,
+        mode: state.mode,
+        addNote,
+        editNote,
+        updateNote,
+      }}
     >
       {props.children}
     </NoteContext.Provider>

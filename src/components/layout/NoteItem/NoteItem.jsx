@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Grid,
@@ -15,6 +15,7 @@ import {
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import StarIcon from '@material-ui/icons/Star';
+import NoteContext from '../../../context/notes/NoteContext';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
 
 const NoteItem = ({ id, title, timestamp, content, onClick }) => {
   const classes = useStyles();
+  const noteContext = useContext(NoteContext);
+  const { editNote } = noteContext;
+
   return (
     <Grid item className={classes.grid}>
       <Card className={classes.card} variant="elevation" elevation={12}>
@@ -52,7 +56,7 @@ const NoteItem = ({ id, title, timestamp, content, onClick }) => {
         </CardContent>
         <Divider />
         <CardActions disableSpacing>
-          <IconButton aria-label="edit" onClick={() => onClick(id)}>
+          <IconButton aria-label="edit" onClick={() => editNote(id)}>
             <EditIcon color="action" />
           </IconButton>
           <IconButton aria-label="delete" onClick={() => onClick(id)}>
