@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo, forwardRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import {
@@ -11,45 +11,27 @@ import {
   makeStyles,
   withStyles,
   Switch,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  IconButton,
+  Divider,
 } from '@material-ui/core';
-
-import Divider from '@material-ui/core/Divider';
 
 import WbSunny from '@material-ui/icons/WbSunny';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import InfoIcon from '@material-ui/icons/Info';
+import HomeIcon from '@material-ui/icons/Home';
 
-import { grey } from '@material-ui/core/colors';
+import grey from '@material-ui/core/colors/grey';
 
 import UIContext from '../../../context/ui/UIContext';
 
 const drawerWidth = '250px';
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   menuButton: {
     marginRight: theme.spacing(2),
   },
@@ -115,9 +97,9 @@ const Navbar = () => {
   function ListItemLink(props) {
     const { icon, primary, to } = props;
 
-    const renderLink = React.useMemo(
+    const renderLink = useMemo(
       () =>
-        React.forwardRef((itemProps, ref) => (
+        forwardRef((itemProps, ref) => (
           <RouterLink to={to} ref={ref} {...itemProps} />
         )),
       [to]
@@ -169,20 +151,10 @@ const Navbar = () => {
         </div>
         <Divider />
         <List>
-          <ListItemLink to="/" primary="Home" icon={<InboxIcon />} />
-          <ListItemLink to="/about" primary="About" icon={<MailIcon />} />
+          <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
+          <ListItemLink to="/about" primary="About" icon={<InfoIcon />} />
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
         <List>
           <ListItem>
             <ListItemText>Change Theme</ListItemText>
