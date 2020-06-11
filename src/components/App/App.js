@@ -1,14 +1,53 @@
-import React, { Fragment } from 'react';
+import React, { useContext } from 'react';
 import './App.css';
-import { CssBaseline } from '@material-ui/core';
+import {
+  CssBaseline,
+  ThemeProvider,
+  createMuiTheme,
+  Container,
+  Card,
+} from '@material-ui/core';
 import Navbar from '../layout/Navbar/Navbar';
+import UIContext from '../../context/ui/UIContext';
 
 function App() {
+  const uiContext = useContext(UIContext);
+  const { theme } = uiContext;
+
+  const appTheme = createMuiTheme({
+    palette: {
+      type: theme,
+    },
+  });
+
   return (
-    <Fragment>
+    <ThemeProvider theme={appTheme}>
       <CssBaseline />
       <Navbar />
-    </Fragment>
+      <Container>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+        <Card>
+          <h1>Hello</h1>
+        </Card>
+      </Container>
+    </ThemeProvider>
   );
 }
 
