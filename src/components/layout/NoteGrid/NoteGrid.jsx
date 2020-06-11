@@ -1,6 +1,6 @@
 import React from 'react';
 import NoteItem from '../NoteItem/NoteItem';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid, makeStyles, Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -40,9 +40,11 @@ const NoteGrid = () => {
   ];
 
   return (
-    <Grid container className={classes.grid}>
-      {notes.map(createNotes)}
-    </Grid>
+    <Container>
+      <Grid container className={classes.grid}>
+        {notes.map(createNotes)}
+      </Grid>
+    </Container>
   );
 };
 
