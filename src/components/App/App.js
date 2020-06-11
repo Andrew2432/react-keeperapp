@@ -23,10 +23,8 @@ const App = () => {
         <CssBaseline />
         <Navbar />
         <Switch>
-          <main>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/about" component={About} />
-          </main>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/about" component={About} />
         </Switch>
       </ThemeProvider>
     </Router>
