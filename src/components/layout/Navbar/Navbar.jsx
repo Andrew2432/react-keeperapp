@@ -11,7 +11,6 @@ import {
   makeStyles,
   withStyles,
   Switch,
-  Link,
 } from '@material-ui/core';
 
 import Divider from '@material-ui/core/Divider';
@@ -112,7 +111,6 @@ const Navbar = () => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const onClick = (e) => e.preventDefault();
 
   function ListItemLink(props) {
     const { icon, primary, to } = props;
