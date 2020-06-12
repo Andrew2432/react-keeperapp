@@ -77,6 +77,18 @@ const CreateNote = () => {
     }
   };
 
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const { title, content } = note;
+    if (title.trim() === '' || content.trim() === '')
+      alert('Please enter a note');
+    else {
+      updateNote(note);
+      alert('Updated successfully');
+      clearFields();
+    }
+  };
+
   return (
     <Card className={classes.card} variant="elevation" elevation={12}>
       <form noValidate autoComplete="off" className={classes.form}>
@@ -114,7 +126,7 @@ const CreateNote = () => {
               <Button
                 className={classes.button}
                 variant="contained"
-                onClick={() => updateNote(note)}
+                onClick={handleUpdate}
               >
                 Add
               </Button>
