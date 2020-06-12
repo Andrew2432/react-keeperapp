@@ -1,7 +1,13 @@
 import React, { useReducer } from 'react';
 import NoteContext from './NoteContext';
 import noteReducer from './noteReducer';
-import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE, BACK_STATE } from '../types';
+import {
+  ADD_NOTE,
+  EDIT_NOTE,
+  UPDATE_NOTE,
+  BACK_STATE,
+  DELETE_NOTE,
+} from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const NoteState = (props) => {
@@ -48,6 +54,10 @@ const NoteState = (props) => {
     });
   };
 
+  const deleteNote = (id) => {
+    dispatch({ type: DELETE_NOTE, payload: id });
+  };
+
   const backState = () => {
     dispatch({ type: BACK_STATE });
   };
@@ -62,6 +72,7 @@ const NoteState = (props) => {
         editNote,
         updateNote,
         backState,
+        deleteNote,
       }}
     >
       {props.children}

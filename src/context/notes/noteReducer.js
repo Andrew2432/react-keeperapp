@@ -1,4 +1,10 @@
-import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE, BACK_STATE } from '../types';
+import {
+  ADD_NOTE,
+  EDIT_NOTE,
+  UPDATE_NOTE,
+  BACK_STATE,
+  DELETE_NOTE,
+} from '../types';
 
 export default (state, action) => {
   const { type, payload } = action;
@@ -23,6 +29,13 @@ export default (state, action) => {
       });
 
       return { ...state, currentNote: null, notes: state.notes, mode: 'add' };
+
+    case DELETE_NOTE:
+      state.notes.forEach((note, index) => {
+        if (note.id === payload) state.notes.splice(index, 1);
+      });
+
+      return { ...state, notes: state.notes };
 
     case BACK_STATE:
       return { ...state, currentNote: null, mode: 'add' };

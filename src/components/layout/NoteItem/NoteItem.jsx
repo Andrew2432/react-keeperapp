@@ -45,7 +45,11 @@ const useStyles = makeStyles((theme) => ({
 const NoteItem = ({ id, title, timestamp, content, onClick }) => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { editNote } = noteContext;
+  const { editNote, deleteNote } = noteContext;
+
+  const handleDelete = (id) => {
+    window.confirm('Are you sure?') && deleteNote(id);
+  };
 
   return (
     <Grid item className={classes.grid}>
@@ -59,7 +63,7 @@ const NoteItem = ({ id, title, timestamp, content, onClick }) => {
           <IconButton aria-label="edit" onClick={() => editNote(id)}>
             <EditIcon color="action" />
           </IconButton>
-          <IconButton aria-label="delete" onClick={() => onClick(id)}>
+          <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
             <DeleteIcon color="error" />
           </IconButton>
           <IconButton aria-label="star" onClick={() => onClick(id)}>
