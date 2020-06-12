@@ -4,6 +4,7 @@ import {
   UPDATE_NOTE,
   BACK_STATE,
   DELETE_NOTE,
+  TOGGLE_STAR,
 } from '../types';
 
 export default (state, action) => {
@@ -36,6 +37,34 @@ export default (state, action) => {
       });
 
       return { ...state, notes: state.notes };
+
+    case TOGGLE_STAR:
+      const find = state.notes.filter((note) => note.id === payload);
+      if (find[0] !== undefined && !find[0].starred) {
+        find[0].starred = true;
+        state.notes = state.notes.filter((note) => note.id !== payload);
+        return {
+          ...state,
+          starredNotes: [...state.starredNotes, find[0]],
+          notes: state.notes,
+        };
+      } else {
+        const starFind = state.starredNotes.filter(
+          (note) => note.id === payload
+        );
+        if (starFind[0].starred) {
+          starFind[0].starred = false;
+          state.starredNotes = state.starredNotes.filter(
+            (note) => note.id !== payload
+          );
+          return {
+            ...state,
+            starredNotes: state.starredNotes,
+            notes: [...state.notes, starFind[0]],
+          };
+        }
+      }
+      break;
 
     case BACK_STATE:
       return { ...state, currentNote: null, mode: 'add' };

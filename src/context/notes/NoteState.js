@@ -7,12 +7,14 @@ import {
   UPDATE_NOTE,
   BACK_STATE,
   DELETE_NOTE,
+  TOGGLE_STAR,
 } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const NoteState = (props) => {
   const initialState = {
     notes: [],
+    starredNotes: [],
     currentNote: null,
     mode: 'add',
   };
@@ -35,6 +37,7 @@ const NoteState = (props) => {
       ...note,
       id: uuidv4(),
       timestamp: getTimestamp(),
+      starred: false,
     };
 
     dispatch({
@@ -58,6 +61,10 @@ const NoteState = (props) => {
     dispatch({ type: DELETE_NOTE, payload: id });
   };
 
+  const setStar = (id) => {
+    dispatch({ type: TOGGLE_STAR, payload: id });
+  };
+
   const backState = () => {
     dispatch({ type: BACK_STATE });
   };
@@ -67,12 +74,14 @@ const NoteState = (props) => {
       value={{
         notes: state.notes,
         currentNote: state.currentNote,
+        starredNotes: state.starredNotes,
         mode: state.mode,
         addNote,
         editNote,
         updateNote,
         backState,
         deleteNote,
+        setStar,
       }}
     >
       {props.children}

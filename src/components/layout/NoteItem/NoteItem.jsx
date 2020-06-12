@@ -42,13 +42,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NoteItem = ({ id, title, timestamp, content, onClick }) => {
+const NoteItem = ({ id, title, timestamp, content, starred }) => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { editNote, deleteNote } = noteContext;
+  const { editNote, deleteNote, setStar } = noteContext;
 
   const handleDelete = (id) => {
     window.confirm('Are you sure?') && deleteNote(id);
+  };
+
+  const handleStar = (id) => {
+    setStar(id);
   };
 
   return (
@@ -66,8 +70,8 @@ const NoteItem = ({ id, title, timestamp, content, onClick }) => {
           <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
             <DeleteIcon color="error" />
           </IconButton>
-          <IconButton aria-label="star" onClick={() => onClick(id)}>
-            <StarIcon />
+          <IconButton aria-label="star" onClick={() => handleStar(id)}>
+            {starred ? <StarIcon color={'primary'} /> : <StarIcon />}
           </IconButton>
         </CardActions>
       </Card>
@@ -80,6 +84,7 @@ NoteItem.propTypes = {
   content: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  starred: PropTypes.bool.isRequired,
 };
 
 export default NoteItem;
