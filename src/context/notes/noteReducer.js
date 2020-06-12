@@ -1,4 +1,4 @@
-import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE } from '../types';
+import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE, BACK_STATE } from '../types';
 
 export default (state, action) => {
   const { type, payload } = action;
@@ -23,6 +23,9 @@ export default (state, action) => {
       });
 
       return { ...state, currentNote: null, notes: state.notes, mode: 'add' };
+
+    case BACK_STATE:
+      return { ...state, currentNote: null, mode: 'add' };
 
     default:
       return state;

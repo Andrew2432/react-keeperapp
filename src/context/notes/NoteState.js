@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 import NoteContext from './NoteContext';
 import noteReducer from './noteReducer';
-import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE } from '../types';
+import { ADD_NOTE, EDIT_NOTE, UPDATE_NOTE, BACK_STATE } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 const NoteState = (props) => {
@@ -48,6 +48,10 @@ const NoteState = (props) => {
     });
   };
 
+  const backState = () => {
+    dispatch({ type: BACK_STATE });
+  };
+
   return (
     <NoteContext.Provider
       value={{
@@ -57,6 +61,7 @@ const NoteState = (props) => {
         addNote,
         editNote,
         updateNote,
+        backState,
       }}
     >
       {props.children}

@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react';
 import {
   Card,
+  Box,
   TextField,
   makeStyles,
   Button,
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateNote = () => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { addNote, mode, currentNote, updateNote } = noteContext;
+  const { addNote, mode, currentNote, updateNote, backState } = noteContext;
 
   const [note, setNote] = useState({
     title: '',
@@ -89,6 +90,11 @@ const CreateNote = () => {
     }
   };
 
+  const handleBack = () => {
+    clearFields();
+    backState();
+  };
+
   return (
     <Card className={classes.card} variant="elevation" elevation={12}>
       <form noValidate autoComplete="off" className={classes.form}>
@@ -117,20 +123,30 @@ const CreateNote = () => {
             <Button
               className={classes.button}
               variant="contained"
+              color="primary"
               onClick={handleAdd}
             >
               Add
             </Button>
           ) : (
-            <Fragment>
+            <Box>
               <Button
                 className={classes.button}
                 variant="contained"
+                color="secondary"
                 onClick={handleUpdate}
               >
-                Add
+                Update
               </Button>
-            </Fragment>
+              <Button
+                className={classes.button}
+                variant="contained"
+                color="default"
+                onClick={handleBack}
+              >
+                Back
+              </Button>
+            </Box>
           )}
         </Fragment>
       </form>
