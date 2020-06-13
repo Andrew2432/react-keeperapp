@@ -7,7 +7,8 @@ import {
   UPDATE_NOTE,
   BACK_STATE,
   DELETE_NOTE,
-  TOGGLE_STAR,
+  REMOVE_STAR,
+  SET_STAR,
 } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -62,9 +63,12 @@ const NoteState = (props) => {
   };
 
   const setStar = (id) => {
-    dispatch({ type: TOGGLE_STAR, payload: id });
+    dispatch({ type: SET_STAR, payload: id });
   };
 
+  const removeStar = (id) => {
+    dispatch({ type: REMOVE_STAR, payload: id });
+  };
   const backState = () => {
     dispatch({ type: BACK_STATE });
   };
@@ -82,6 +86,7 @@ const NoteState = (props) => {
         backState,
         deleteNote,
         setStar,
+        removeStar,
       }}
     >
       {props.children}

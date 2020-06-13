@@ -1,5 +1,6 @@
 import React, { useContext, Fragment } from 'react';
 import NoteItem from '../NoteItem/NoteItem';
+import StarredNote from '../NoteItem/StarredNote';
 import {
   Grid,
   makeStyles,
@@ -20,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const createNotes = (note) => {
-  return <NoteItem key={note.id} {...note} />;
-};
+const createNotes = (note) => <NoteItem key={note.id} {...note} />;
+
+const createStarredNotes = (note) => <StarredNote key={note.id} {...note} />;
 
 const NoteGrid = () => {
   const classes = useStyles();
@@ -35,7 +36,7 @@ const NoteGrid = () => {
         {starredNotes.length > 0 && (
           <Fragment>
             <Typography variant="h5">Starred notes</Typography>
-            {starredNotes.map(createNotes)}
+            {starredNotes.map(createStarredNotes)}
           </Fragment>
         )}
       </Grid>

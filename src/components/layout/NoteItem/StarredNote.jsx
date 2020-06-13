@@ -45,14 +45,10 @@ const useStyles = makeStyles((theme) => ({
 const NoteItem = ({ id, title, timestamp, content }) => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { editNote, deleteNote, setStar } = noteContext;
+  const { editStarNote, deleteStarNote, removeStar } = noteContext;
 
   const handleDelete = (id) => {
-    window.confirm('Are you sure?') && deleteNote(id);
-  };
-
-  const handleStar = (id) => {
-    setStar(id);
+    window.confirm('Are you sure?') && deleteStarNote(id);
   };
 
   return (
@@ -64,14 +60,14 @@ const NoteItem = ({ id, title, timestamp, content }) => {
         </CardContent>
         <Divider />
         <CardActions disableSpacing>
-          <IconButton aria-label="edit" onClick={() => editNote(id)}>
+          <IconButton aria-label="edit" onClick={() => editStarNote(id)}>
             <EditIcon color="action" />
           </IconButton>
           <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
             <DeleteIcon color="error" />
           </IconButton>
-          <IconButton aria-label="star" onClick={() => handleStar(id)}>
-            <StarIcon />
+          <IconButton aria-label="star" onClick={() => removeStar(id)}>
+            <StarIcon color="primary" />
           </IconButton>
         </CardActions>
       </Card>
@@ -84,7 +80,6 @@ NoteItem.propTypes = {
   content: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  starred: PropTypes.bool.isRequired,
 };
 
 export default NoteItem;
