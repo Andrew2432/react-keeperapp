@@ -33,7 +33,14 @@ const useStyles = makeStyles((theme) => ({
 const CreateNote = () => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { addNote, mode, currentNote, updateNote, backState } = noteContext;
+  const {
+    addNote,
+    mode,
+    currentNote,
+    updateNote,
+    updateStarNote,
+    backState,
+  } = noteContext;
 
   const [note, setNote] = useState({
     title: '',
@@ -84,7 +91,11 @@ const CreateNote = () => {
     if (title.trim() === '' || content.trim() === '')
       alert('Please enter a note');
     else {
-      updateNote(note);
+      if (currentNote.starred) {
+        updateStarNote(note);
+      } else {
+        updateNote(note);
+      }
       alert('Updated successfully');
       clearFields();
     }

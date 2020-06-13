@@ -6,6 +6,8 @@ import {
   DELETE_NOTE,
   SET_STAR,
   REMOVE_STAR,
+  EDIT_STAR_NOTE,
+  UPDATE_STAR_NOTE,
 } from '../types';
 
 export default (state, action) => {
@@ -57,6 +59,30 @@ export default (state, action) => {
         ...state,
         notes: [...state.notes, starItem[0]],
         starredNotes: state.starredNotes.filter((note) => note.id !== payload),
+      };
+
+    case EDIT_STAR_NOTE:
+      const findStarNote = state.starredNotes.filter(
+        (note) => note.id === payload
+      );
+      return { ...state, currentNote: findStarNote[0], mode: 'edit' };
+
+    case UPDATE_STAR_NOTE:
+      const updatedStarNote = {
+        ...state.currentNote,
+        ...payload,
+      };
+
+      state.starredNotes.forEach((note, index) => {
+        if (note.id === updatedStarNote.id)
+          state.starredNotes.splice(index, 1, updatedStarNote);
+      });
+
+      return {
+        ...state,
+        currentNote: null,
+        starredNotes: state.starredNotes,
+        mode: 'add',
       };
 
     case BACK_STATE:

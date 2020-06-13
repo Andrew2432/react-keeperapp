@@ -51,10 +51,6 @@ const NoteItem = ({ id, title, timestamp, content }) => {
     window.confirm('Are you sure?') && deleteNote(id);
   };
 
-  const handleStar = (id) => {
-    setStar(id);
-  };
-
   return (
     <Grid item className={classes.grid}>
       <Card className={classes.card} variant="elevation" elevation={12}>
@@ -70,7 +66,7 @@ const NoteItem = ({ id, title, timestamp, content }) => {
           <IconButton aria-label="delete" onClick={() => handleDelete(id)}>
             <DeleteIcon color="error" />
           </IconButton>
-          <IconButton aria-label="star" onClick={() => handleStar(id)}>
+          <IconButton aria-label="star" onClick={() => setStar(id)}>
             <StarIcon />
           </IconButton>
         </CardActions>
