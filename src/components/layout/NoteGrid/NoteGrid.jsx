@@ -32,18 +32,23 @@ const NoteGrid = () => {
 
   return (
     <Container>
-      <Grid container className={classes.grid}>
-        {starredNotes.length > 0 && (
-          <Fragment>
-            <Typography variant="h5">Starred notes</Typography>
+      {starredNotes.length > 0 && (
+        <Fragment>
+          <Typography variant="h4">Starred notes</Typography>
+          <Grid container className={classes.grid}>
             {starredNotes.map(createStarredNotes)}
-          </Fragment>
-        )}
-      </Grid>
+          </Grid>
+        </Fragment>
+      )}
       <Divider />
-      <Grid container className={classes.grid}>
-        {notes.length > 0 && notes.map(createNotes)}
-      </Grid>
+      {notes.length > 0 && (
+        <Fragment>
+          <Typography variant="h4">Your notes</Typography>
+          <Grid container className={classes.grid}>
+            {notes.map(createNotes)}
+          </Grid>
+        </Fragment>
+      )}
       {!starredNotes.length && !notes.length && (
         <Typography variant="h5" className={classes.message}>
           No notes present.
