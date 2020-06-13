@@ -41,13 +41,12 @@ export default (state, action) => {
 
     case SET_STAR:
       const find = state.notes.filter((note) => note.id === payload);
-
       find[0].starred = true;
-      state.notes = state.notes.filter((note) => note.id !== payload);
+
       return {
         ...state,
         starredNotes: [...state.starredNotes, find[0]],
-        notes: state.notes,
+        notes: state.notes.filter((note) => note.id !== payload),
       };
 
     case REMOVE_STAR:
