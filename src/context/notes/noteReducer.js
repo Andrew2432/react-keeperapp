@@ -41,16 +41,14 @@ export default (state, action) => {
 
     case SET_STAR:
       const find = state.notes.filter((note) => note.id === payload);
-      if (find[0] !== undefined && !find[0].starred) {
-        find[0].starred = true;
-        state.notes = state.notes.filter((note) => note.id !== payload);
-        return {
-          ...state,
-          starredNotes: [...state.starredNotes, find[0]],
-          notes: state.notes,
-        };
-      }
-      break;
+
+      find[0].starred = true;
+      state.notes = state.notes.filter((note) => note.id !== payload);
+      return {
+        ...state,
+        starredNotes: [...state.starredNotes, find[0]],
+        notes: state.notes,
+      };
 
     case REMOVE_STAR:
       const starItem = state.starredNotes.filter((note) => note.id === payload);
