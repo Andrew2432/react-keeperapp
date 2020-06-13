@@ -15,3 +15,4 @@ export const REMOVE_STAR = 'REMOVE_STAR';
 export const EDIT_STAR_NOTE = 'EDIT_STAR_NOTE';
 export const UPDATE_STAR_NOTE = 'UPDATE_STAR_NOTE';
 export const REMOVE_STAR_NOTE = 'REMOVE_STAR_NOTE';
+export const DELETE_STAR_NOTE = 'DELETE_STAR_NOTE';

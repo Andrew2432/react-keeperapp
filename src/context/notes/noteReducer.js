@@ -8,6 +8,7 @@ import {
   REMOVE_STAR,
   EDIT_STAR_NOTE,
   UPDATE_STAR_NOTE,
+  DELETE_STAR_NOTE,
 } from '../types';
 
 export default (state, action) => {
@@ -84,6 +85,13 @@ export default (state, action) => {
         starredNotes: state.starredNotes,
         mode: 'add',
       };
+
+    case DELETE_STAR_NOTE:
+      state.starredNotes.forEach((note, index) => {
+        if (note.id === payload) state.starredNotes.splice(index, 1);
+      });
+
+      return { ...state, starredNotes: state.starredNotes };
 
     case BACK_STATE:
       return { ...state, currentNote: null, mode: 'add' };
