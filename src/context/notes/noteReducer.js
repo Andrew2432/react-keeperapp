@@ -96,13 +96,22 @@ export default (state, action) => {
       };
 
     case REMOVE_STAR:
-      const starItem = state.starredNotes.filter((note) => note.id === payload);
+      starredItems = JSON.parse(localStorage.getItem('starredNotes'));
+      items = JSON.parse(localStorage.getItem('notes'));
+
+      const starItem = starredItems.filter((note) => note.id === payload);
       starItem[0].starred = false;
+
+      items.push(starItem[0]);
+      localStorage.setItem('notes', JSON.stringify(items));
+
+      starredItems = starredItems.filter((note) => note.id !== payload);
+      localStorage.setItem('starredNotes', JSON.stringify(starredItems));
 
       return {
         ...state,
-        notes: [...state.notes, starItem[0]],
-        starredNotes: state.starredNotes.filter((note) => note.id !== payload),
+        notes: items,
+        starredNotes: starredItems,
       };
 
     case EDIT_STAR_NOTE:
