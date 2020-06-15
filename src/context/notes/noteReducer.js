@@ -146,11 +146,14 @@ export default (state, action) => {
       };
 
     case DELETE_STAR_NOTE:
-      state.starredNotes.forEach((note, index) => {
-        if (note.id === payload) state.starredNotes.splice(index, 1);
+      starredItems = JSON.parse(localStorage.getItem('starredNotes'));
+      starredItems.forEach((note, index) => {
+        if (note.id === payload) starredItems.splice(index, 1);
       });
 
-      return { ...state, starredNotes: state.starredNotes };
+      localStorage.setItem('starredNotes', JSON.stringify(starredItems));
+
+      return { ...state, starredNotes: starredItems };
 
     case BACK_STATE:
       return { ...state, currentNote: null, mode: 'add' };
