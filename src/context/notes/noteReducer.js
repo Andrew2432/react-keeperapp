@@ -129,15 +129,19 @@ export default (state, action) => {
         ...payload,
       };
 
-      state.starredNotes.forEach((note, index) => {
+      starredItems = JSON.parse(localStorage.getItem('starredNotes'));
+
+      starredItems.forEach((note, index) => {
         if (note.id === updatedStarNote.id)
-          state.starredNotes.splice(index, 1, updatedStarNote);
+          starredItems.splice(index, 1, updatedStarNote);
       });
+
+      localStorage.setItem('starredNotes', JSON.stringify(starredItems));
 
       return {
         ...state,
         currentNote: null,
-        starredNotes: state.starredNotes,
+        starredNotes: starredItems,
         mode: 'add',
       };
 
