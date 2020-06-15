@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import NoteItem from '../NoteItem/NoteItem';
 import StarredNote from '../NoteItem/StarredNote';
 import {
@@ -28,7 +28,12 @@ const createStarredNotes = (note) => <StarredNote key={note.id} {...note} />;
 const NoteGrid = () => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { notes, starredNotes } = noteContext;
+  const { notes, starredNotes, getNotes } = noteContext;
+
+  useEffect(() => {
+    getNotes();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Container>

@@ -18,6 +18,7 @@ const UIState = (props) => {
   const toggleDrawer = () => {
     dispatch({ type: TOGGLE_DRAWER });
   };
+
   return (
     <UIContext.Provider
       value={{

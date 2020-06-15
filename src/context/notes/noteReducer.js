@@ -1,4 +1,5 @@
 import {
+  GET_NOTES,
   ADD_NOTE,
   EDIT_NOTE,
   UPDATE_NOTE,
@@ -13,10 +14,27 @@ import {
 
 export default (state, action) => {
   const { type, payload } = action;
+  let items;
 
   switch (type) {
+    case GET_NOTES:
+      if (localStorage.getItem('notes') !== null) {
+        items = JSON.parse(localStorage.getItem('notes'));
+      } else {
+        items = [];
+      }
+      return { ...state, notes: items };
+
     case ADD_NOTE:
-      return { ...state, notes: [...state.notes, payload] };
+      if (localStorage.getItem('notes') !== null) {
+        items = JSON.parse(localStorage.getItem('notes'));
+        items.push(payload);
+        localStorage.setItem('notes', JSON.stringify(items));
+      } else {
+        items = [payload];
+        localStorage.setItem('notes', JSON.stringify(items));
+      }
+      return { ...state, notes: items };
 
     case EDIT_NOTE:
       const findNote = state.notes.filter((note) => note.id === payload);
@@ -28,12 +46,14 @@ export default (state, action) => {
         ...payload,
       };
 
-      state.notes.forEach((note, index) => {
-        if (note.id === updatedNote.id)
-          state.notes.splice(index, 1, updatedNote);
+      items = JSON.parse(localStorage.getItem('notes'));
+      items.forEach((note, index) => {
+        if (note.id === updatedNote.id) items.splice(index, 1, updatedNote);
       });
 
-      return { ...state, currentNote: null, notes: state.notes, mode: 'add' };
+      localStorage.setItem('notes', JSON.stringify(items));
+
+      return { ...state, currentNote: null, notes: items, mode: 'add' };
 
     case DELETE_NOTE:
       state.notes.forEach((note, index) => {

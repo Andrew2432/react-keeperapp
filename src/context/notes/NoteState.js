@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import NoteContext from './NoteContext';
 import noteReducer from './noteReducer';
 import {
+  GET_NOTES,
   ADD_NOTE,
   EDIT_NOTE,
   UPDATE_NOTE,
@@ -35,6 +36,10 @@ const NoteState = (props) => {
       minute: 'numeric',
       hour12: true,
     });
+
+  const getNotes = () => {
+    dispatch({ type: GET_NOTES });
+  };
 
   const addNote = (note) => {
     dispatch({
@@ -94,6 +99,7 @@ const NoteState = (props) => {
         currentNote: state.currentNote,
         starredNotes: state.starredNotes,
         mode: state.mode,
+        getNotes,
         addNote,
         editNote,
         updateNote,
