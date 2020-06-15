@@ -11,6 +11,7 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const BACK_STATE = 'BACK_STATE';
 
 // Starred note types
+export const GET_STARRED_NOTES = 'GET_STARRED_NOTES';
 export const SET_STAR = 'TOGGLE_STAR';
 export const REMOVE_STAR = 'REMOVE_STAR';
 export const EDIT_STAR_NOTE = 'EDIT_STAR_NOTE';

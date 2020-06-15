@@ -10,11 +10,12 @@ import {
   EDIT_STAR_NOTE,
   UPDATE_STAR_NOTE,
   DELETE_STAR_NOTE,
+  GET_STARRED_NOTES,
 } from '../types';
 
 export default (state, action) => {
   const { type, payload } = action;
-  let items;
+  let items, starredItems;
 
   switch (type) {
     case GET_NOTES:
@@ -62,14 +63,36 @@ export default (state, action) => {
 
       return { ...state, notes: state.notes };
 
+    case GET_STARRED_NOTES:
+      if (localStorage.getItem('starredNotes') !== null) {
+        starredItems = JSON.parse(localStorage.getItem('starredNotes'));
+      } else {
+        starredItems = [];
+      }
+
+      return { ...state, starredNotes: starredItems };
+
     case SET_STAR:
-      const find = state.notes.filter((note) => note.id === payload);
+      items = JSON.parse(localStorage.getItem('notes'));
+      const find = items.filter((note) => note.id === payload);
       find[0].starred = true;
+
+      if (localStorage.getItem('starredNotes') !== null) {
+        starredItems = JSON.parse(localStorage.getItem('starredNotes'));
+        starredItems.push(find[0]);
+        localStorage.setItem('starredNotes', JSON.stringify(starredItems));
+      } else {
+        starredItems = [find[0]];
+        localStorage.setItem('starredNotes', JSON.stringify(starredItems));
+      }
+
+      items = items.filter((note) => note.id !== payload);
+      localStorage.setItem('notes', JSON.stringify(items));
 
       return {
         ...state,
-        starredNotes: [...state.starredNotes, find[0]],
-        notes: state.notes.filter((note) => note.id !== payload),
+        starredNotes: starredItems,
+        notes: items,
       };
 
     case REMOVE_STAR:

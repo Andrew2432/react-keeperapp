@@ -8,6 +8,7 @@ import {
   UPDATE_NOTE,
   BACK_STATE,
   DELETE_NOTE,
+  GET_STARRED_NOTES,
   REMOVE_STAR,
   SET_STAR,
   EDIT_STAR_NOTE,
@@ -68,6 +69,10 @@ const NoteState = (props) => {
     dispatch({ type: DELETE_NOTE, payload: id });
   };
 
+  const getStarredNotes = () => {
+    dispatch({ type: GET_STARRED_NOTES });
+  };
+
   const setStar = (id) => {
     dispatch({ type: SET_STAR, payload: id });
   };
@@ -105,6 +110,7 @@ const NoteState = (props) => {
         updateNote,
         backState,
         deleteNote,
+        getStarredNotes,
         setStar,
         removeStar,
         editStarNote,

@@ -28,9 +28,10 @@ const createStarredNotes = (note) => <StarredNote key={note.id} {...note} />;
 const NoteGrid = () => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
-  const { notes, starredNotes, getNotes } = noteContext;
+  const { notes, starredNotes, getNotes, getStarredNotes } = noteContext;
 
   useEffect(() => {
+    getStarredNotes();
     getNotes();
     // eslint-disable-next-line
   }, []);
