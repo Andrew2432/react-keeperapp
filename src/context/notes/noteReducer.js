@@ -57,11 +57,14 @@ export default (state, action) => {
       return { ...state, currentNote: null, notes: items, mode: 'add' };
 
     case DELETE_NOTE:
-      state.notes.forEach((note, index) => {
-        if (note.id === payload) state.notes.splice(index, 1);
+      items = JSON.parse(localStorage.getItem('notes'));
+      items.forEach((note, index) => {
+        if (note.id === payload) items.splice(index, 1);
       });
 
-      return { ...state, notes: state.notes };
+      localStorage.setItem('notes', JSON.stringify(items));
+
+      return { ...state, notes: items };
 
     case GET_STARRED_NOTES:
       if (localStorage.getItem('starredNotes') !== null) {
