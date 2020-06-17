@@ -1,6 +1,8 @@
 // UI types
 export const SET_THEME = 'SET_THEME';
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
+export const SET_TOAST = 'SET_TOAST';
+export const REMOVE_TOAST = 'REMOVE_TOAST';
 
 // Note types
 export const GET_NOTES = 'GET_NOTES';
