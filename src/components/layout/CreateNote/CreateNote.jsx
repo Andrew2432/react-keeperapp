@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import NoteContext from '../../../context/notes/NoteContext';
+import UIContext from '../../../context/ui/UIContext';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 const CreateNote = () => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
+  const uiContext = useContext(UIContext);
+
   const {
     addNote,
     mode,
@@ -41,6 +44,8 @@ const CreateNote = () => {
     updateStarNote,
     backState,
   } = noteContext;
+
+  const { displayToast } = uiContext;
 
   const [note, setNote] = useState({
     title: '',
@@ -77,10 +82,10 @@ const CreateNote = () => {
     e.preventDefault();
     const { title, content } = note;
     if (title.trim() === '' || content.trim() === '')
-      alert('Please enter a note');
+      displayToast({ type: 'warning', message: 'Enter all fields' });
     else {
       addNote(note);
-      alert('Added successfully');
+      displayToast({ type: 'success', message: 'Added successfully' });
       clearFields();
     }
   };
@@ -89,14 +94,14 @@ const CreateNote = () => {
     e.preventDefault();
     const { title, content } = note;
     if (title.trim() === '' || content.trim() === '')
-      alert('Please enter a note');
+      displayToast({ type: 'warning', message: 'Enter all fields' });
     else {
       if (currentNote.starred) {
         updateStarNote(note);
       } else {
         updateNote(note);
       }
-      alert('Updated successfully');
+      displayToast({ type: 'success', message: 'Updated successfully' });
       clearFields();
     }
   };
