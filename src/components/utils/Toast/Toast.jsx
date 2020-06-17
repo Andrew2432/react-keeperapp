@@ -20,7 +20,7 @@ const Toast = () => {
   return (
     showToast && (
       <div className={classes.root}>
-        <Snackbar open={showToast} autoHideDuration={3000} onClose={hideToast}>
+        <Snackbar open={showToast} autoHideDuration={2000} onClose={hideToast}>
           <MuiAlert
             elevation={6}
             variant="filled"

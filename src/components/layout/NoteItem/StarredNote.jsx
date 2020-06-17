@@ -16,6 +16,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import StarIcon from '@material-ui/icons/Star';
 import NoteContext from '../../../context/notes/NoteContext';
+import UIContext from '../../../context/ui/UIContext';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -45,10 +46,16 @@ const useStyles = makeStyles((theme) => ({
 const NoteItem = ({ id, title, timestamp, content }) => {
   const classes = useStyles();
   const noteContext = useContext(NoteContext);
+  const uiContext = useContext(UIContext);
+
   const { editStarNote, deleteStarNote, removeStar } = noteContext;
+  const { displayToast } = uiContext;
 
   const handleDelete = (id) => {
-    window.confirm('Are you sure?') && deleteStarNote(id);
+    if (window.confirm('Are you sure?')) {
+      deleteStarNote(id);
+      displayToast({ type: 'success', message: 'Deleted successfully' });
+    }
   };
 
   return (
